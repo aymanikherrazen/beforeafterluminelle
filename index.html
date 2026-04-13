@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Luminelle — Before/After</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,400;1,600&family=Poppins:wght@400;500;600&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --navy:#083D77;
+  --teal:#3AAFA9;
+  --bg:#FAFAF8;
+  --text:#0d1b2a;
+  --muted:#7c8da6;
+}
+body{background:var(--bg);font-family:'Poppins',sans-serif;color:var(--text)}
+
+.ba-section{width:100%;padding:72px 0 80px;background:var(--bg);overflow:hidden}
+
+.ba-swiper-wrap{position:relative;padding:0 56px}
+@media(max-width:768px){.ba-swiper-wrap{padding:0 20px}}
+
+.swiper{overflow:visible}
+.swiper-slide{height:auto}
+
+.ba-card{
+  background:#fff;border-radius:20px;overflow:hidden;
+  border:2px solid var(--card-color,var(--navy));
+  display:flex;flex-direction:column;height:100%;
+}
+
+/* ── SLIDE TITLE ── */
+.ba-slide-title{
+  display:flex;align-items:center;justify-content:center;
+  padding:16px 24px 12px;border-bottom:1px solid rgba(0,0,0,.06);
+  gap:8px;
+}
+.ba-slide-title .title-dot{
+  width:4px;height:4px;border-radius:50%;
+  background:var(--card-color,var(--navy));
+  flex-shrink:0;opacity:.4
+}
+.ba-slide-title .title-text{
+  font-family:'Cormorant Garamond',serif;
+  font-size:20px;
+  font-weight:600;
+  font-style:italic;
+  color:var(--card-color,var(--navy));
+  letter-spacing:.03em;
+  line-height:1;
+}
+
+/* ── COMPARE ── */
+.ba-compare{
+  position:relative;width:100%;aspect-ratio:4/5;
+  user-select:none;overflow:hidden;
+  -webkit-tap-highlight-color:transparent;
+  touch-action:none;
+}
+.ba-img{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;pointer-events:none;display:block;
+}
+.ba-after{clip-path:inset(0 50% 0 0)}
+
+.ba-handle{
+  position:absolute;top:0;bottom:0;left:50%;
+  width:44px;
+  transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  cursor:col-resize;z-index:10;
+}
+.ba-line{
+  position:absolute;top:0;bottom:0;left:50%;
+  width:2px;background:#fff;transform:translateX(-50%);
+  box-shadow:0 0 6px rgba(0,0,0,.25);
+}
+.ba-btn{
+  width:42px;height:42px;border-radius:50%;
+  background:#fff;
+  box-shadow:0 2px 14px rgba(0,0,0,.22);
+  display:flex;align-items:center;justify-content:center;
+  position:relative;z-index:2;
+  transition:transform .15s,box-shadow .15s;
+}
+.ba-compare.dragging .ba-btn{transform:scale(1.08);box-shadow:0 4px 20px rgba(0,0,0,.3)}
+.ba-btn svg{width:18px;height:18px;stroke:var(--card-color,var(--navy));fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+
+@keyframes pulseHint{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
+.ba-btn.hint{animation:pulseHint 1.2s ease-in-out 3}
+
+.ba-lbl{
+  position:absolute;top:12px;
+  font-family:'Montserrat',sans-serif;
+  font-size:10px;font-weight:800;
+  letter-spacing:.12em;color:#fff;
+  background:rgba(0,0,0,.45);
+  padding:4px 10px;border-radius:20px;
+  backdrop-filter:blur(4px);
+}
+.ba-lbl.before{left:12px}
+.ba-lbl.after{right:12px}
+
+/* ── REVIEW ── */
+.ba-review{
+  padding:16px 18px 18px;border-top:1px solid rgba(0,0,0,.06);
+  display:flex;flex-direction:column;gap:8px
+}
+.ba-stars{display:flex;gap:3px}
+.ba-stars svg{width:13px;height:13px;fill:var(--card-color,var(--navy))}
+.ba-review-text{
+  font-size:12px;color:#1a1a1a;
+  line-height:1.65;font-style:italic
+}
+.ba-reviewer{display:flex;align-items:center;gap:10px;margin-top:2px}
+.ba-avatar{
+  width:32px;height:32px;border-radius:50%;
+  background:var(--card-color,var(--navy));
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Montserrat',sans-serif;
+  font-size:11px;font-weight:800;color:#fff;flex-shrink:0
+}
+.ba-reviewer-info strong{
+  display:block;font-size:12px;font-weight:600;color:#1a1a1a
+}
+.ba-reviewer-info .city-line{
+  font-size:10px;color:var(--muted);display:block;margin-bottom:4px;
+}
+.ba-verified-badge{
+  display:inline-flex;align-items:center;gap:4px;
+  background:#e8f8f7;
+  border:1px solid rgba(58,175,169,.25);
+  border-radius:20px;
+  padding:2px 8px 2px 4px;
+  width:fit-content;
+}
+.ba-verified-icon{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:13px;height:13px;border-radius:50%;
+  background:var(--teal);flex-shrink:0;
+}
+.ba-verified-icon svg{width:7px;height:7px;stroke:#fff;fill:none;stroke-width:2.8;stroke-linecap:round;stroke-linejoin:round}
+.ba-verified-badge span{
+  font-size:9.5px;font-weight:600;
+  color:#0f7a74;letter-spacing:.02em;
+}
+
+/* ── ARROWS ── */
+.ba-arrow{
+  position:absolute;top:50%;transform:translateY(-50%);
+  width:44px;height:44px;border-radius:50%;
+  background:#fff;border:1.5px solid rgba(8,61,119,.2);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;z-index:20;transition:all .2s;
+  box-shadow:0 2px 12px rgba(0,0,0,.08)
+}
+.ba-arrow:hover{background:var(--navy);border-color:var(--navy)}
+.ba-arrow:hover svg{stroke:#fff}
+.ba-arrow svg{width:18px;height:18px;stroke:var(--navy);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.ba-prev{left:0}.ba-next{right:0}
+@media(max-width:768px){.ba-arrow{display:none}}
+
+.ba-pagination{display:flex;justify-content:center;gap:8px;margin-top:36px}
+.ba-pagination .swiper-pagination-bullet{
+  width:8px;height:8px;border-radius:50%;
+  background:rgba(8,61,119,.2);opacity:1;transition:all .3s
+}
+.ba-pagination .swiper-pagination-bullet-active{
+  background:var(--navy);width:24px;border-radius:4px
+}
+</style>
+</head>
+<body>
+<section class="ba-section">
+  <div class="ba-swiper-wrap">
+    <div class="swiper" id="baSwiper">
+      <div class="swiper-wrapper">
+
+        <!-- SLIDE 1 -->
+        <div class="swiper-slide">
+          <div class="ba-card" style="--card-color:var(--navy)">
+            <div class="ba-slide-title">
+              <span class="title-dot"></span>
+              <span class="title-text">Gel Nettoyant Purifiant</span>
+              <span class="title-dot"></span>
+            </div>
+            <div class="ba-compare">
+              <img class="ba-img ba-before" src="https://images.unsplash.com/photo-1616683693504-3ea7e9ad6fec?w=600&q=80" alt="Avant">
+              <img class="ba-img ba-after" src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=600&q=80" alt="Après">
+              <span class="ba-lbl before">Avant</span>
+              <span class="ba-lbl after">Après</span>
+              <div class="ba-handle">
+                <div class="ba-line"></div>
+                <div class="ba-btn hint">
+                  <svg viewBox="0 0 24 24"><polyline points="9 18 3 12 9 6"/><polyline points="15 6 21 12 15 18"/></svg>
+                </div>
+              </div>
+            </div>
+            <div class="ba-review">
+              <div class="ba-stars">
+                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              </div>
+              <p class="ba-review-text">"Mes pores sont visiblement réduits dès la 2e semaine. Je ne peux plus m'en passer."</p>
+              <div class="ba-reviewer">
+                <div class="ba-avatar">SA</div>
+                <div class="ba-reviewer-info">
+                  <strong>Salma A.</strong>
+                  <span class="city-line">Casablanca</span>
+                  <div class="ba-verified-badge">
+                    <span class="ba-verified-icon"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></span>
+                    <span>Cliente vérifiée</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SLIDE 2 -->
+        <div class="swiper-slide">
+          <div class="ba-card" style="--card-color:var(--teal)">
+            <div class="ba-slide-title">
+              <span class="title-dot"></span>
+              <span class="title-text">Sérum Éclat Intense</span>
+              <span class="title-dot"></span>
+            </div>
+            <div class="ba-compare">
+              <img class="ba-img ba-before" src="https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=600&q=80" alt="Avant">
+              <img class="ba-img ba-after" src="https://images.unsplash.com/photo-1590172205940-86cf4613a668?w=600&q=80" alt="Après">
+              <span class="ba-lbl before">Avant</span>
+              <span class="ba-lbl after">Après</span>
+              <div class="ba-handle">
+                <div class="ba-line"></div>
+                <div class="ba-btn">
+                  <svg viewBox="0 0 24 24"><polyline points="9 18 3 12 9 6"/><polyline points="15 6 21 12 15 18"/></svg>
+                </div>
+              </div>
+            </div>
+            <div class="ba-review">
+              <div class="ba-stars">
+                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              </div>
+              <p class="ba-review-text">"Mon teint est unifié, les taches ont clairement diminué. Un vrai sérum haute gamme."</p>
+              <div class="ba-reviewer">
+                <div class="ba-avatar">NB</div>
+                <div class="ba-reviewer-info">
+                  <strong>Nadia B.</strong>
+                  <span class="city-line">Rabat</span>
+                  <div class="ba-verified-badge">
+                    <span class="ba-verified-icon"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></span>
+                    <span>Cliente vérifiée</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SLIDE 3 -->
+        <div class="swiper-slide">
+          <div class="ba-card" style="--card-color:var(--navy)">
+            <div class="ba-slide-title">
+              <span class="title-dot"></span>
+              <span class="title-text">Écran Solaire SPF 50+</span>
+              <span class="title-dot"></span>
+            </div>
+            <div class="ba-compare">
+              <img class="ba-img ba-before" src="https://images.unsplash.com/photo-1594616838951-6b3e3f9b5f09?w=600&q=80" alt="Avant">
+              <img class="ba-img ba-after" src="https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?w=600&q=80" alt="Après">
+              <span class="ba-lbl before">Avant</span>
+              <span class="ba-lbl after">Après</span>
+              <div class="ba-handle">
+                <div class="ba-line"></div>
+                <div class="ba-btn">
+                  <svg viewBox="0 0 24 24"><polyline points="9 18 3 12 9 6"/><polyline points="15 6 21 12 15 18"/></svg>
+                </div>
+              </div>
+            </div>
+            <div class="ba-review">
+              <div class="ba-stars">
+                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              </div>
+              <p class="ba-review-text">"Enfin un solaire invisible sur ma peau mate. Plus aucune tache depuis que je l'utilise."</p>
+              <div class="ba-reviewer">
+                <div class="ba-avatar">MK</div>
+                <div class="ba-reviewer-info">
+                  <strong>Meriem K.</strong>
+                  <span class="city-line">Marrakech</span>
+                  <div class="ba-verified-badge">
+                    <span class="ba-verified-icon"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></span>
+                    <span>Cliente vérifiée</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SLIDE 4 -->
+        <div class="swiper-slide">
+          <div class="ba-card" style="--card-color:var(--teal)">
+            <div class="ba-slide-title">
+              <span class="title-dot"></span>
+              <span class="title-text">Routine Complète</span>
+              <span class="title-dot"></span>
+            </div>
+            <div class="ba-compare">
+              <img class="ba-img ba-before" src="https://images.unsplash.com/photo-1614109959986-3ec0c82d2ca5?w=600&q=80" alt="Avant">
+              <img class="ba-img ba-after" src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=600&q=80" alt="Après">
+              <span class="ba-lbl before">Avant</span>
+              <span class="ba-lbl after">Après</span>
+              <div class="ba-handle">
+                <div class="ba-line"></div>
+                <div class="ba-btn">
+                  <svg viewBox="0 0 24 24"><polyline points="9 18 3 12 9 6"/><polyline points="15 6 21 12 15 18"/></svg>
+                </div>
+              </div>
+            </div>
+            <div class="ba-review">
+              <div class="ba-stars">
+                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              </div>
+              <p class="ba-review-text">"La routine complète a transformé ma peau en 3 semaines. Je recommande à toutes !"</p>
+              <div class="ba-reviewer">
+                <div class="ba-avatar">HM</div>
+                <div class="ba-reviewer-info">
+                  <strong>Hajar M.</strong>
+                  <span class="city-line">Fès</span>
+                  <div class="ba-verified-badge">
+                    <span class="ba-verified-icon"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></span>
+                    <span>Cliente vérifiée</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="ba-arrow ba-prev" id="baPrev">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+    </div>
+    <div class="ba-arrow ba-next" id="baNext">
+      <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg>
+    </div>
+  </div>
+  <div class="ba-pagination" id="baPagination"></div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+var swiper = new Swiper('#baSwiper', {
+  slidesPerView:1, spaceBetween:20, grabCursor:true,
+  navigation:{prevEl:'#baPrev',nextEl:'#baNext'},
+  pagination:{el:'#baPagination',clickable:true},
+  breakpoints:{
+    640:{slidesPerView:2,spaceBetween:20},
+    1024:{slidesPerView:3,spaceBetween:24},
+    1280:{slidesPerView:4,spaceBetween:24}
+  }
+});
+
+document.querySelectorAll('.ba-compare').forEach(function(el){
+  var after=el.querySelector('.ba-after');
+  var handle=el.querySelector('.ba-handle');
+  var dragging=false;
+
+  function getPos(e){
+    var rect=el.getBoundingClientRect();
+    var x=(e.touches?e.touches[0].clientX:e.clientX)-rect.left;
+    return Math.min(Math.max(x/rect.width*100,0),100);
+  }
+  function update(pos){
+    after.style.clipPath='inset(0 '+(100-pos)+'% 0 0)';
+    handle.style.left=pos+'%';
+  }
+  function start(e){
+    e.preventDefault();e.stopPropagation();
+    dragging=true;el.classList.add('dragging');
+    swiper.allowTouchMove=false;update(getPos(e));
+  }
+  function move(e){
+    if(!dragging)return;e.preventDefault();update(getPos(e));
+  }
+  function end(){
+    if(!dragging)return;dragging=false;
+    el.classList.remove('dragging');swiper.allowTouchMove=true;
+  }
+  el.addEventListener('mousedown',start,{passive:false});
+  el.addEventListener('touchstart',start,{passive:false});
+  window.addEventListener('mousemove',move,{passive:false});
+  window.addEventListener('touchmove',move,{passive:false});
+  window.addEventListener('mouseup',end);
+  window.addEventListener('touchend',end);
+  update(50);
+});
+</script>
+</body>
+</html>
