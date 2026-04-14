@@ -22,7 +22,10 @@ body{background:var(--bg);font-family:'Poppins',sans-serif;color:var(--text)}
 .ba-slide-title .tt{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;font-style:italic;color:var(--cc,var(--navy));letter-spacing:.03em;line-height:1}
 
 /* COMPARE */
-.ba-compare{position:relative;width:100%;aspect-ratio:4/5;overflow:hidden;user-select:none;-webkit-tap-highlight-color:transparent;touch-action:none;cursor:col-resize}
+.ba-compare{position:relative;width:100%;aspect-ratio:1/1;overflow:hidden;user-select:none;-webkit-tap-highlight-color:transparent;cursor:col-resize}
+@media(max-width:640px){.ba-compare{aspect-ratio:4/5}}
+/* handle zone touchable only */
+.ba-btn{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:40px;height:40px;border-radius:50%;background:#fff;box-shadow:0 2px 14px rgba(0,0,0,.25);display:flex;align-items:center;justify-content:center;transition:transform .15s;touch-action:none;cursor:col-resize}
 
 /* BEFORE — full width, always visible underneath */
 .ba-before-layer{position:absolute;inset:0}
@@ -162,7 +165,7 @@ body{background:var(--bg);font-family:'Poppins',sans-serif;color:var(--text)}
             </div>
             <div class="ba-review">
               <div class="ba-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
-              <p class="ba-review-text">"La routine complète a transformé ma peau en 6 semaines. Ghzalaaaa mashallah. Je recommande à toutes !"</p>
+              <p class="ba-review-text">"La routine complète a transformé ma peau en 6 semaines. Je recommande à toutes !"</p>
               <div class="ba-reviewer"><div class="ba-avatar">HM</div><div class="ba-reviewer-info"><strong>Hajar M.</strong><span class="city">Fès</span><div class="ba-badge"><span class="ba-badge-icon"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></span><span>Cliente vérifiée</span></div></div></div>
             </div>
           </div>
@@ -218,8 +221,17 @@ document.querySelectorAll('.ba-compare').forEach(function(el){
     }
   }
 
+  var btn=el.querySelector('.ba-btn');
+
   el.addEventListener('pointerdown',function(e){
     if(e.button!==0)return;
+    // on mobile, only start drag if touching the handle button
+    var isMobile=window.matchMedia('(max-width:640px)').matches;
+    if(isMobile){
+      var bRect=btn.getBoundingClientRect();
+      var inBtn=e.clientX>=bRect.left-16&&e.clientX<=bRect.right+16&&e.clientY>=bRect.top-16&&e.clientY<=bRect.bottom+16;
+      if(!inBtn)return;
+    }
     e.preventDefault();e.stopPropagation();
     el.setPointerCapture(e.pointerId);
     dragging=true;el.classList.add('dragging');
