@@ -1,55 +1,138 @@
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,600&family=Poppins:wght@400;600&family=Montserrat:wght@800&display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,400;1,600&family=Poppins:wght@400;500;600&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--navy:#083D77;--teal:#3AAFA9;--bg:#FAFAF8;--text:#0d1b2a;--muted:#7c8da6}
+:root{
+  --navy:#083D77;
+  --teal:#3AAFA9;
+  --bg:#FAFAF8;
+  --text:#0d1b2a;
+  --muted:#7c8da6;
+}
 body{background:var(--bg);font-family:'Poppins',sans-serif;color:var(--text)}
 .ba-section{width:100%;padding:72px 0 80px;background:var(--bg);overflow:hidden}
 .ba-swiper-wrap{position:relative;padding:0 56px}
 @media(max-width:768px){.ba-swiper-wrap{padding:0 20px}}
 .swiper{overflow:visible}
 .swiper-slide{height:auto}
-.ba-card{background:#fff;border-radius:20px;overflow:hidden;border:2px solid var(--card-color,var(--navy));display:flex;flex-direction:column;height:100%}
-.ba-slide-title{display:flex;align-items:center;justify-content:center;padding:16px 24px 12px;border-bottom:1px solid rgba(0,0,0,.06);gap:8px}
-.ba-slide-title .title-dot{width:4px;height:4px;border-radius:50%;background:var(--card-color,var(--navy));flex-shrink:0;opacity:.4}
-.ba-slide-title .title-text{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;font-style:italic;color:var(--card-color,var(--navy));letter-spacing:.03em;line-height:1}
-.ba-compare{position:relative;width:100%;aspect-ratio:4/5;user-select:none;overflow:hidden;-webkit-tap-highlight-color:transparent;touch-action:none}
-.ba-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none;display:block}
-.ba-after-layer{position:absolute;inset:0;clip-path:inset(0 50% 0 0);will-change:clip-path}
-.ba-after-layer .ba-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none;display:block}
-.ba-handle{position:absolute;top:0;bottom:0;left:50%;width:44px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:col-resize;z-index:10;will-change:left}
-.ba-line{position:absolute;top:0;bottom:0;left:50%;width:2px;background:#fff;transform:translateX(-50%);box-shadow:0 0 6px rgba(0,0,0,.25)}
-.ba-btn{width:42px;height:42px;border-radius:50%;background:#fff;box-shadow:0 2px 14px rgba(0,0,0,.22);display:flex;align-items:center;justify-content:center;position:relative;z-index:2;transition:transform .15s,box-shadow .15s}
+.ba-card{
+  background:#fff;border-radius:20px;overflow:hidden;
+  border:2px solid var(--card-color,var(--navy));
+  display:flex;flex-direction:column;height:100%;
+}
+.ba-slide-title{
+  display:flex;align-items:center;justify-content:center;
+  padding:16px 24px 12px;border-bottom:1px solid rgba(0,0,0,.06);
+  gap:8px;
+}
+.ba-slide-title .title-dot{
+  width:4px;height:4px;border-radius:50%;
+  background:var(--card-color,var(--navy));
+  flex-shrink:0;opacity:.4
+}
+.ba-slide-title .title-text{
+  font-family:'Cormorant Garamond',serif;
+  font-size:20px;font-weight:600;font-style:italic;
+  color:var(--card-color,var(--navy));
+  letter-spacing:.03em;line-height:1;
+}
+.ba-compare{
+  position:relative;width:100%;aspect-ratio:4/5;
+  user-select:none;overflow:hidden;
+  -webkit-tap-highlight-color:transparent;
+  touch-action:none;
+}
+.ba-img{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;pointer-events:none;display:block;
+}
+.ba-after{clip-path:inset(0 50% 0 0)}
+.ba-handle{
+  position:absolute;top:0;bottom:0;left:50%;
+  width:44px;
+  transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  cursor:col-resize;z-index:10;
+}
+.ba-line{
+  position:absolute;top:0;bottom:0;left:50%;
+  width:2px;background:#fff;transform:translateX(-50%);
+  box-shadow:0 0 6px rgba(0,0,0,.25);
+}
+.ba-btn{
+  width:42px;height:42px;border-radius:50%;
+  background:#fff;
+  box-shadow:0 2px 14px rgba(0,0,0,.22);
+  display:flex;align-items:center;justify-content:center;
+  position:relative;z-index:2;
+  transition:transform .15s,box-shadow .15s;
+}
 .ba-compare.dragging .ba-btn{transform:scale(1.08);box-shadow:0 4px 20px rgba(0,0,0,.3)}
 .ba-btn svg{width:18px;height:18px;stroke:var(--card-color,var(--navy));fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
 @keyframes pulseHint{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
 .ba-btn.hint{animation:pulseHint 1.2s ease-in-out 3}
-.ba-lbl{position:absolute;top:10px;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:800;letter-spacing:.12em;color:#fff;padding:4px 7px;border-radius:20px;backdrop-filter:blur(4px);pointer-events:none;z-index:5}
-.ba-lbl.before{left:8px}
-.ba-lbl.after{right:8px}
-.ba-review{padding:16px 18px 18px;border-top:1px solid rgba(0,0,0,.06);display:flex;flex-direction:column;gap:8px}
+.ba-lbl{
+  position:absolute;top:12px;
+  font-family:'Montserrat',sans-serif;
+  font-size:10px;font-weight:800;
+  letter-spacing:.12em;color:#fff;
+  background:rgba(0,0,0,.45);
+  padding:4px 10px;border-radius:20px;
+  backdrop-filter:blur(4px);
+}
+.ba-lbl.before{left:12px}
+.ba-lbl.after{right:12px}
+.ba-review{
+  padding:16px 18px 18px;border-top:1px solid rgba(0,0,0,.06);
+  display:flex;flex-direction:column;gap:8px
+}
 .ba-stars{display:flex;gap:3px}
 .ba-stars svg{width:13px;height:13px;fill:var(--card-color,var(--navy))}
 .ba-review-text{font-size:12px;color:#1a1a1a;line-height:1.65;font-style:italic}
 .ba-reviewer{display:flex;align-items:center;gap:10px;margin-top:2px}
-.ba-avatar{width:32px;height:32px;border-radius:50%;background:var(--card-color,var(--navy));display:flex;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:800;color:#fff;flex-shrink:0}
+.ba-avatar{
+  width:32px;height:32px;border-radius:50%;
+  background:var(--card-color,var(--navy));
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Montserrat',sans-serif;
+  font-size:11px;font-weight:800;color:#fff;flex-shrink:0
+}
 .ba-reviewer-info strong{display:block;font-size:12px;font-weight:600;color:#1a1a1a}
-.ba-reviewer-info .city-line{font-size:10px;color:var(--muted);display:block;margin-bottom:4px}
-.ba-verified-badge{display:inline-flex;align-items:center;gap:4px;background:#e8f8f7;border:1px solid rgba(58,175,169,.25);border-radius:20px;padding:2px 8px 2px 4px;width:fit-content}
-.ba-verified-icon{display:inline-flex;align-items:center;justify-content:center;width:13px;height:13px;border-radius:50%;background:var(--teal);flex-shrink:0}
+.ba-reviewer-info .city-line{font-size:10px;color:var(--muted);display:block;margin-bottom:4px;}
+.ba-verified-badge{
+  display:inline-flex;align-items:center;gap:4px;
+  background:#e8f8f7;border:1px solid rgba(58,175,169,.25);
+  border-radius:20px;padding:2px 8px 2px 4px;width:fit-content;
+}
+.ba-verified-icon{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:13px;height:13px;border-radius:50%;
+  background:var(--teal);flex-shrink:0;
+}
 .ba-verified-icon svg{width:7px;height:7px;stroke:#fff;fill:none;stroke-width:2.8;stroke-linecap:round;stroke-linejoin:round}
-.ba-verified-badge span{font-size:9.5px;font-weight:600;color:#0f7a74;letter-spacing:.02em}
-.ba-arrow{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;background:#fff;border:1.5px solid rgba(8,61,119,.2);display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:20;transition:all .2s;box-shadow:0 2px 12px rgba(0,0,0,.08)}
+.ba-verified-badge span{font-size:9.5px;font-weight:600;color:#0f7a74;letter-spacing:.02em;}
+.ba-arrow{
+  position:absolute;top:50%;transform:translateY(-50%);
+  width:44px;height:44px;border-radius:50%;
+  background:#fff;border:1.5px solid rgba(8,61,119,.2);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;z-index:20;transition:all .2s;
+  box-shadow:0 2px 12px rgba(0,0,0,.08)
+}
 .ba-arrow:hover{background:var(--navy);border-color:var(--navy)}
 .ba-arrow:hover svg{stroke:#fff}
 .ba-arrow svg{width:18px;height:18px;stroke:var(--navy);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
 .ba-prev{left:0}.ba-next{right:0}
 @media(max-width:768px){.ba-arrow{display:none}}
 .ba-pagination{display:flex;justify-content:center;gap:8px;margin-top:36px}
-.ba-pagination .swiper-pagination-bullet{width:8px;height:8px;border-radius:50%;background:rgba(8,61,119,.2);opacity:1;transition:all .3s}
-.ba-pagination .swiper-pagination-bullet-active{background:var(--navy);width:24px;border-radius:4px}
+.ba-pagination .swiper-pagination-bullet{
+  width:8px;height:8px;border-radius:50%;
+  background:rgba(8,61,119,.2);opacity:1;transition:all .3s
+}
+.ba-pagination .swiper-pagination-bullet-active{
+  background:var(--navy);width:24px;border-radius:4px
+}
 </style>
 
 <section class="ba-section">
@@ -57,20 +140,24 @@ body{background:var(--bg);font-family:'Poppins',sans-serif;color:var(--text)}
     <div class="swiper" id="baSwiper">
       <div class="swiper-wrapper">
 
-        <!-- SLIDE 1 -->
         <div class="swiper-slide">
           <div class="ba-card" style="--card-color:#2bb3f3">
             <div class="ba-slide-title">
-              <span class="title-dot"></span><span class="title-text">Preuve par l'Efficacité</span><span class="title-dot"></span>
+              <span class="title-dot"></span>
+              <span class="title-text">Preuve par l'Efficacité</span>
+              <span class="title-dot"></span>
             </div>
             <div class="ba-compare">
-              <img class="ba-img" src="https://www.danishskincare.com/cdn/shop/files/rec3AW9uu5Qj8SB9p-after.jpg" alt="Avant" loading="lazy" decoding="async">
-              <div class="ba-after-layer">
-                <img class="ba-img" src="https://www.danishskincare.com/cdn/shop/files/rec3AW9uu5Qj8SB9p-before.jpg" alt="Après" loading="lazy" decoding="async">
-              </div>
+              <img class="ba-img ba-before" src="https://www.danishskincare.com/cdn/shop/files/rec3AW9uu5Qj8SB9p-after.jpg" alt="Avant">
+              <img class="ba-img ba-after" src="https://www.danishskincare.com/cdn/shop/files/rec3AW9uu5Qj8SB9p-before.jpg" alt="Après">
               <span class="ba-lbl before">Avant</span>
               <span class="ba-lbl after">Après</span>
-              <div class="ba-handle"><div class="ba-line"></div><div class="ba-btn hint"><svg viewBox="0 0 24 24"><polyline points="9 18 3 12 9 6"/><polyline points="15 6 21 12 15 18"/></svg></div></div>
+              <div class="ba-handle">
+                <div class="ba-line"></div>
+                <div class="ba-btn hint">
+                  <svg viewBox="0 0 24 24"><polyline points="9 18 3 12 9 6"/><polyline points="15 6 21 12 15 18"/></svg>
+                </div>
+              </div>
             </div>
             <div class="ba-review">
               <div class="ba-stars">
@@ -84,28 +171,36 @@ body{background:var(--bg);font-family:'Poppins',sans-serif;color:var(--text)}
               <div class="ba-reviewer">
                 <div class="ba-avatar">SA</div>
                 <div class="ba-reviewer-info">
-                  <strong>Salma A.</strong><span class="city-line">Casablanca</span>
-                  <div class="ba-verified-badge"><span class="ba-verified-icon"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></span><span>Cliente vérifiée</span></div>
+                  <strong>Salma A.</strong>
+                  <span class="city-line">Casablanca</span>
+                  <div class="ba-verified-badge">
+                    <span class="ba-verified-icon"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></span>
+                    <span>Cliente vérifiée</span>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- SLIDE 2 -->
         <div class="swiper-slide">
           <div class="ba-card" style="--card-color:var(--teal)">
             <div class="ba-slide-title">
-              <span class="title-dot"></span><span class="title-text">L'Expérience Luminelle</span><span class="title-dot"></span>
+              <span class="title-dot"></span>
+              <span class="title-text">L'Expérience Luminelle</span>
+              <span class="title-dot"></span>
             </div>
             <div class="ba-compare">
-              <img class="ba-img" src="https://www.danishskincare.com/cdn/shop/files/recT9ohefWffUCAdO-thumbnail-before.jpg" alt="Avant" loading="lazy" decoding="async">
-              <div class="ba-after-layer">
-                <img class="ba-img" src="https://www.danishskincare.com/cdn/shop/files/recT9ohefWffUCAdO-thumbnail-after.jpg" alt="Après" loading="lazy" decoding="async">
-              </div>
+              <img class="ba-img ba-before" src="https://www.danishskincare.com/cdn/shop/files/recT9ohefWffUCAdO-thumbnail-before.jpg" alt="Avant">
+              <img class="ba-img ba-after" src="https://www.danishskincare.com/cdn/shop/files/recT9ohefWffUCAdO-thumbnail-after.jpg" alt="Après">
               <span class="ba-lbl before">Avant</span>
               <span class="ba-lbl after">Après</span>
-              <div class="ba-handle"><div class="ba-line"></div><div class="ba-btn"><svg viewBox="0 0 24 24"><polyline points="9 18 3 12 9 6"/><polyline points="15 6 21 12 15 18"/></svg></div></div>
+              <div class="ba-handle">
+                <div class="ba-line"></div>
+                <div class="ba-btn">
+                  <svg viewBox="0 0 24 24"><polyline points="9 18 3 12 9 6"/><polyline points="15 6 21 12 15 18"/></svg>
+                </div>
+              </div>
             </div>
             <div class="ba-review">
               <div class="ba-stars">
@@ -119,28 +214,36 @@ body{background:var(--bg);font-family:'Poppins',sans-serif;color:var(--text)}
               <div class="ba-reviewer">
                 <div class="ba-avatar">NB</div>
                 <div class="ba-reviewer-info">
-                  <strong>Nadia B.</strong><span class="city-line">Rabat</span>
-                  <div class="ba-verified-badge"><span class="ba-verified-icon"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></span><span>Cliente vérifiée</span></div>
+                  <strong>Nadia B.</strong>
+                  <span class="city-line">Rabat</span>
+                  <div class="ba-verified-badge">
+                    <span class="ba-verified-icon"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></span>
+                    <span>Cliente vérifiée</span>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- SLIDE 3 -->
         <div class="swiper-slide">
           <div class="ba-card" style="--card-color:#083d77">
             <div class="ba-slide-title">
-              <span class="title-dot"></span><span class="title-text">Votre Peau, Sublimée</span><span class="title-dot"></span>
+              <span class="title-dot"></span>
+              <span class="title-text">Votre Peau, Sublimée</span>
+              <span class="title-dot"></span>
             </div>
             <div class="ba-compare">
-              <img class="ba-img" src="https://www.danishskincare.com/cdn/shop/files/rec7aGymep9Hp7g88-thumbnail-before.jpg" alt="Avant" loading="lazy" decoding="async">
-              <div class="ba-after-layer">
-                <img class="ba-img" src="https://www.danishskincare.com/cdn/shop/files/rec7aGymep9Hp7g88-thumbnail-after.jpg" alt="Après" loading="lazy" decoding="async">
-              </div>
+              <img class="ba-img ba-before" src="https://www.danishskincare.com/cdn/shop/files/rec7aGymep9Hp7g88-thumbnail-before.jpg" alt="Avant">
+              <img class="ba-img ba-after" src="https://www.danishskincare.com/cdn/shop/files/rec7aGymep9Hp7g88-thumbnail-after.jpg" alt="Après">
               <span class="ba-lbl before">Avant</span>
               <span class="ba-lbl after">Après</span>
-              <div class="ba-handle"><div class="ba-line"></div><div class="ba-btn"><svg viewBox="0 0 24 24"><polyline points="9 18 3 12 9 6"/><polyline points="15 6 21 12 15 18"/></svg></div></div>
+              <div class="ba-handle">
+                <div class="ba-line"></div>
+                <div class="ba-btn">
+                  <svg viewBox="0 0 24 24"><polyline points="9 18 3 12 9 6"/><polyline points="15 6 21 12 15 18"/></svg>
+                </div>
+              </div>
             </div>
             <div class="ba-review">
               <div class="ba-stars">
@@ -154,63 +257,36 @@ body{background:var(--bg);font-family:'Poppins',sans-serif;color:var(--text)}
               <div class="ba-reviewer">
                 <div class="ba-avatar">MK</div>
                 <div class="ba-reviewer-info">
-                  <strong>Meriem K.</strong><span class="city-line">Marrakech</span>
-                  <div class="ba-verified-badge"><span class="ba-verified-icon"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></span><span>Cliente vérifiée</span></div>
+                  <strong>Meriem K.</strong>
+                  <span class="city-line">Marrakech</span>
+                  <div class="ba-verified-badge">
+                    <span class="ba-verified-icon"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></span>
+                    <span>Cliente vérifiée</span>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
- <!-- SLIDE 4 -->
-        <div class="swiper-slide">
-          <div class="ba-card" style="--card-color:#2bb3f3">
-            <div class="ba-slide-title">
-              <span class="title-dot"></span><span class="title-text">Preuve par l'Efficacité</span><span class="title-dot"></span>
-            </div>
-            <div class="ba-compare">
-              <img class="ba-img" src="https://www.danishskincare.com/cdn/shop/files/recbvD2AVPMEAOy5d-thumbnail-before.jpg" alt="Avant" loading="lazy" decoding="async">
-              <div class="ba-after-layer">
-                <img class="ba-img" src="https://www.danishskincare.com/cdn/shop/files/recbvD2AVPMEAOy5d-thumbnail-after.jpg" alt="Après" loading="lazy" decoding="async">
-              </div>
-              <span class="ba-lbl before">Avant</span>
-              <span class="ba-lbl after">Après</span>
-              <div class="ba-handle"><div class="ba-line"></div><div class="ba-btn hint"><svg viewBox="0 0 24 24"><polyline points="9 18 3 12 9 6"/><polyline points="15 6 21 12 15 18"/></svg></div></div>
-            </div>
-            <div class="ba-review">
-              <div class="ba-stars">
-                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-              </div>
-              <p class="ba-review-text">"Mes pores sont visiblement réduits dès la 2e semaine. Je ne peux plus m'en passer."</p>
-              <div class="ba-reviewer">
-                <div class="ba-avatar">DB</div>
-                <div class="ba-reviewer-info">
-                  <strong>Doha B.</strong><span class="city-line">Mohammedia</span>
-                  <div class="ba-verified-badge"><span class="ba-verified-icon"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></span><span>Cliente vérifiée</span></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- SLIDE 5 -->
         <div class="swiper-slide">
           <div class="ba-card" style="--card-color:var(--teal)">
             <div class="ba-slide-title">
-              <span class="title-dot"></span><span class="title-text">Routine Complète</span><span class="title-dot"></span>
+              <span class="title-dot"></span>
+              <span class="title-text">Routine Complète</span>
+              <span class="title-dot"></span>
             </div>
             <div class="ba-compare">
-              <img class="ba-img" src="https://cdn11.bigcommerce.com/s-tg95ktubhb/product_images/uploaded_images/exquisiteexfoliantbefore.jpg" alt="Avant" loading="lazy" decoding="async">
-              <div class="ba-after-layer">
-                <img class="ba-img" src="https://cdn11.bigcommerce.com/s-tg95ktubhb/product_images/uploaded_images/exquisiteexfoliantafter.jpg" alt="Après" loading="lazy" decoding="async">
-              </div>
+              <img class="ba-img ba-before" src="https://www.danishskincare.com/cdn/shop/files/recNC5rGuPOyjHuad-thumbnail-before.jpg" alt="Avant">
+              <img class="ba-img ba-after" src="https://www.danishskincare.com/cdn/shop/files/recNC5rGuPOyjHuad-thumbnail-after.jpg" alt="Après">
               <span class="ba-lbl before">Avant</span>
               <span class="ba-lbl after">Après</span>
-              <div class="ba-handle"><div class="ba-line"></div><div class="ba-btn"><svg viewBox="0 0 24 24"><polyline points="9 18 3 12 9 6"/><polyline points="15 6 21 12 15 18"/></svg></div></div>
+              <div class="ba-handle">
+                <div class="ba-line"></div>
+                <div class="ba-btn">
+                  <svg viewBox="0 0 24 24"><polyline points="9 18 3 12 9 6"/><polyline points="15 6 21 12 15 18"/></svg>
+                </div>
+              </div>
             </div>
             <div class="ba-review">
               <div class="ba-stars">
@@ -222,46 +298,14 @@ body{background:var(--bg);font-family:'Poppins',sans-serif;color:var(--text)}
               </div>
               <p class="ba-review-text">"La routine complète a transformé ma peau en 6 semaines. Je recommande à toutes !"</p>
               <div class="ba-reviewer">
-                <div class="ba-avatar">AT</div>
+                <div class="ba-avatar">HM</div>
                 <div class="ba-reviewer-info">
-                  <strong>Amira T.</strong><span class="city-line">Tanger</span>
-                  <div class="ba-verified-badge"><span class="ba-verified-icon"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></span><span>Cliente vérifiée</span></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-
-        <!-- SLIDE 6 -->
-        <div class="swiper-slide">
-          <div class="ba-card" style="--card-color:var(--teal)">
-            <div class="ba-slide-title">
-              <span class="title-dot"></span><span class="title-text">Routine Complète</span><span class="title-dot"></span>
-            </div>
-            <div class="ba-compare">
-              <img class="ba-img" src="https://www.danishskincare.com/cdn/shop/files/recNC5rGuPOyjHuad-thumbnail-before.jpg" alt="Avant" loading="lazy" decoding="async">
-              <div class="ba-after-layer">
-                <img class="ba-img" src="https://www.danishskincare.com/cdn/shop/files/recNC5rGuPOyjHuad-thumbnail-after.jpg" alt="Après" loading="lazy" decoding="async">
-              </div>
-              <span class="ba-lbl before">Avant</span>
-              <span class="ba-lbl after">Après</span>
-              <div class="ba-handle"><div class="ba-line"></div><div class="ba-btn"><svg viewBox="0 0 24 24"><polyline points="9 18 3 12 9 6"/><polyline points="15 6 21 12 15 18"/></svg></div></div>
-            </div>
-            <div class="ba-review">
-              <div class="ba-stars">
-                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-              </div>
-              <p class="ba-review-text">"La routine complète a transformé ma peau en 6 semaines. Je recommande à toutes !"</p>
-              <div class="ba-reviewer">
-                <div class="ba-avatar">RN</div>
-                <div class="ba-reviewer-info">
-                  <strong>Reham N.</strong><span class="city-line">Temara</span>
-                  <div class="ba-verified-badge"><span class="ba-verified-icon"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></span><span>Cliente vérifiée</span></div>
+                  <strong>Hajar M.</strong>
+                  <span class="city-line">Fès</span>
+                  <div class="ba-verified-badge">
+                    <span class="ba-verified-icon"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></span>
+                    <span>Cliente vérifiée</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -270,108 +314,75 @@ body{background:var(--bg);font-family:'Poppins',sans-serif;color:var(--text)}
 
       </div>
     </div>
-    <div class="ba-arrow ba-prev" id="baPrev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></div>
-    <div class="ba-arrow ba-next" id="baNext"><svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg></div>
+    <div class="ba-arrow ba-prev" id="baPrev">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+    </div>
+    <div class="ba-arrow ba-next" id="baNext">
+      <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg>
+    </div>
   </div>
   <div class="ba-pagination" id="baPagination"></div>
 </section>
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
-(function(){
-  'use strict';
+var swiper = new Swiper('#baSwiper', {
+  slidesPerView:1, spaceBetween:20, grabCursor:true,
+  navigation:{prevEl:'#baPrev',nextEl:'#baNext'},
+  pagination:{el:'#baPagination',clickable:true},
+  breakpoints:{
+    640:{slidesPerView:2,spaceBetween:20},
+    1024:{slidesPerView:3,spaceBetween:24},
+    1280:{slidesPerView:4,spaceBetween:24}
+  }
+});
 
-  var swiper = new Swiper('#baSwiper',{
-    slidesPerView:1,spaceBetween:20,grabCursor:true,
-    navigation:{prevEl:'#baPrev',nextEl:'#baNext'},
-    pagination:{el:'#baPagination',clickable:true},
-    breakpoints:{
-      640:{slidesPerView:2,spaceBetween:20},
-      1024:{slidesPerView:3,spaceBetween:24}  /* 3 sur PC */
-    }
-  });
+document.querySelectorAll('.ba-compare').forEach(function(el){
+  var after = el.querySelector('.ba-after');
+  var handle = el.querySelector('.ba-handle');
+  var dragging = false;
 
-  /* Parse CSS color → [r,g,b] une seule fois par card */
-  var _colorCache = {};
-  function parseColor(str){
-    if(_colorCache[str]) return _colorCache[str];
-    var d = document.createElement('div');
-    d.style.color = str;
-    document.body.appendChild(d);
-    var m = getComputedStyle(d).color.match(/\d+/g);
-    document.body.removeChild(d);
-    return (_colorCache[str] = m ? [+m[0],+m[1],+m[2]] : [8,61,119]);
+  function getPos(clientX){
+    var rect = el.getBoundingClientRect();
+    var x = clientX - rect.left;
+    return Math.min(Math.max(x / rect.width * 100, 0), 100);
   }
 
-  document.querySelectorAll('.ba-compare').forEach(function(el){
-    var afterLayer = el.querySelector('.ba-after-layer');
-    var handle     = el.querySelector('.ba-handle');
-    var lblBefore  = el.querySelector('.ba-lbl.before');
-    var lblAfter   = el.querySelector('.ba-lbl.after');
-    var dragging   = false;
-    var rafId      = null;
-    var pendingPos = null;
+  function update(pos){
+    after.style.clipPath = 'inset(0 ' + (100 - pos) + '% 0 0)';
+    handle.style.left = pos + '%';
+  }
 
-    var accent  = parseColor(getComputedStyle(el.closest('.ba-card')).getPropertyValue('--card-color').trim());
-    var neutral = [0,0,0];
-
-    function lerp(a,b,t){ return Math.round(a+(b-a)*t) }
-
-    function applyUpdate(pos){
-      var t = pos/100;
-
-      afterLayer.style.clipPath = 'inset(0 '+(100-pos)+'% 0 0)';
-      handle.style.left = pos+'%';
-
-      var rB=lerp(accent[0],neutral[0],t), gB=lerp(accent[1],neutral[1],t), bB=lerp(accent[2],neutral[2],t);
-      var aB = +(0.9 - t*0.45).toFixed(2);
-      lblBefore.style.background = 'rgba('+rB+','+gB+','+bB+','+aB+')';
-
-      var rA=lerp(neutral[0],accent[0],t), gA=lerp(neutral[1],accent[1],t), bA=lerp(neutral[2],accent[2],t);
-      var aA = +(0.45 + t*0.45).toFixed(2);
-      lblAfter.style.background = 'rgba('+rA+','+gA+','+bA+','+aA+')';
-    }
-
-    function scheduleUpdate(pos){
-      pendingPos = pos;
-      if(rafId) return;
-      rafId = requestAnimationFrame(function(){
-        rafId = null;
-        applyUpdate(pendingPos);
-      });
-    }
-
-    function getPos(clientX){
-      var r = el.getBoundingClientRect();
-      return Math.min(Math.max((clientX-r.left)/r.width*100,0),100);
-    }
-
-    handle.addEventListener('pointerdown',function(e){
-      e.preventDefault(); e.stopPropagation();
-      dragging=true; el.classList.add('dragging');
-      handle.setPointerCapture(e.pointerId);
-      swiper.allowTouchMove=false;
-      scheduleUpdate(getPos(e.clientX));
-    });
-
-    handle.addEventListener('pointermove',function(e){
-      if(!dragging) return;
-      e.preventDefault();
-      scheduleUpdate(getPos(e.clientX));
-    });
-
-    function stopDrag(){
-      dragging=false; el.classList.remove('dragging');
-      swiper.allowTouchMove=true;
-    }
-    handle.addEventListener('pointerup',function(e){
-      if(!dragging) return;
-      handle.releasePointerCapture(e.pointerId);
-      stopDrag();
-    });
-    handle.addEventListener('pointercancel',stopDrag);
-
-    applyUpdate(50);
+  handle.addEventListener('pointerdown', function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    dragging = true;
+    el.classList.add('dragging');
+    handle.setPointerCapture(e.pointerId);
+    swiper.allowTouchMove = false;
+    update(getPos(e.clientX));
   });
-})();
+
+  handle.addEventListener('pointermove', function(e){
+    if (!dragging) return;
+    e.preventDefault();
+    update(getPos(e.clientX));
+  });
+
+  handle.addEventListener('pointerup', function(e){
+    if (!dragging) return;
+    dragging = false;
+    el.classList.remove('dragging');
+    handle.releasePointerCapture(e.pointerId);
+    swiper.allowTouchMove = true;
+  });
+
+  handle.addEventListener('pointercancel', function(e){
+    dragging = false;
+    el.classList.remove('dragging');
+    swiper.allowTouchMove = true;
+  });
+
+  update(50);
+});
 </script>
