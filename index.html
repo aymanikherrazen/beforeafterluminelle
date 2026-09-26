@@ -5,14 +5,14 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Luminelle — Before/After</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Montserrat:wght@700;800&family=Cormorant+Garamond:ital,wght@1,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Montserrat:wght@700;800&family=Cormorant+Garamond:ital,wght@1,600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 
 :root{
-  --navy:#083D77;
+  --navy:#2bb3f3;
   --teal:#3AAFA9;
   --bg:#FAFAF8;
   --text:#0d1b2a;
@@ -21,7 +21,7 @@
 
 body{
   background:var(--bg);
-  font-family:'Poppins',sans-serif;
+  font-family:'Roboto',sans-serif;
   color:var(--text)
 }
 
@@ -101,7 +101,6 @@ body{
   .ba-compare{aspect-ratio:4/5}
 }
 
-/* handle zone touchable only */
 .ba-btn{
   position:absolute;
   top:50%;
@@ -120,7 +119,6 @@ body{
   cursor:col-resize
 }
 
-/* BEFORE */
 .ba-before-layer{
   position:absolute;
   inset:0
@@ -155,7 +153,6 @@ body{
 .ba-lbl-b{left:12px}
 .ba-lbl-a{right:12px}
 
-/* AFTER */
 .ba-after-layer{
   position:absolute;
   inset:0;
@@ -171,7 +168,6 @@ body{
   display:block
 }
 
-/* HANDLE */
 .ba-handle{
   position:absolute;
   top:0;
@@ -244,9 +240,10 @@ body{
 }
 
 .ba-review-text{
-  font-size:11.5px;
+  font-size:16px;
+  font-weight:400;
   color:#1a1a1a;
-  line-height:1.65;
+  line-height:1.55;
   font-style:italic
 }
 
@@ -257,7 +254,6 @@ body{
   margin-top:2px
 }
 
-/* AVATAR IMAGE */
 .ba-avatar{
   width:30px;
   height:30px;
@@ -279,24 +275,26 @@ body{
 
 .ba-reviewer-info strong{
   display:block;
-  font-size:11.5px;
-  font-weight:600;
+  font-size:16px;
+  font-weight:700;
   color:#1a1a1a
 }
 
 .ba-reviewer-info .city{
-  font-size:10px;
+  font-size:14px;
+  font-weight:400;
   color:var(--muted);
   display:block;
   margin-bottom:3px
 }
 
+/* BADGE — VERT */
 .ba-badge{
   display:inline-flex;
   align-items:center;
   gap:4px;
-  background:#e8f8f7;
-  border:1px solid rgba(58,175,169,.25);
+  background:#dcfce7;
+  border:1px solid rgba(22,163,74,.25);
   border-radius:20px;
   padding:2px 8px 2px 4px;
   width:fit-content
@@ -306,7 +304,7 @@ body{
   width:13px;
   height:13px;
   border-radius:50%;
-  background:var(--teal);
+  background:#16a34a;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -324,9 +322,9 @@ body{
 }
 
 .ba-badge span{
-  font-size:9.5px;
-  font-weight:600;
-  color:#0f7a74;
+  font-size:10px;
+  font-weight:700;
+  color:#166534;
   letter-spacing:.02em
 }
 
@@ -405,6 +403,15 @@ body{
   width:22px;
   border-radius:4px
 }
+
+/* ====== MOBILE ====== */
+@media(max-width:768px){
+  .ba-slide-title .tt{ font-size:16px; }
+  .ba-review-text{ font-size:14px; font-weight:400; }
+  .ba-reviewer-info strong{ font-size:14px; font-weight:700; }
+  .ba-reviewer-info .city{ font-size:12px; font-weight:400; }
+  .ba-badge span{ font-size:9px; }
+}
 </style>
 </head>
 
@@ -465,7 +472,7 @@ body{
               </div>
 
               <p class="ba-review-text">
-                "Mes pores sont visiblement réduits dès la 2e semaine. Je ne peux plus m'en passer."
+                "Mes pores sont visiblement réduits dès la 5eme semaine. Je ne peux plus m'en passer."
               </p>
 
               <div class="ba-reviewer">
@@ -544,7 +551,7 @@ body{
               </div>
 
               <p class="ba-review-text">
-                "Mon teint est unifié, les taches ont clairement diminué. Un vrai sérum haute gamme."
+                "Mon teint est unifié, les taches ont clairement diminué. Un vrai haute gamme."
               </p>
 
               <div class="ba-reviewer">
@@ -579,7 +586,7 @@ body{
         <!-- SLIDE 3 -->
         <div class="swiper-slide">
 
-          <div class="ba-card" style="--cc:#083D77">
+          <div class="ba-card" style="--cc:#2bb3f3">
 
             <div class="ba-slide-title">
               <span class="td"></span>
