@@ -5,19 +5,10 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Luminelle — Before/After</title>
 
-<!-- ====== PERFORMANCE OPTIMIZATIONS ====== -->
-<!-- Preconnect bach l'DNS lookup ydir mn 9bel -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://cdn.jsdelivr.net">
-<link rel="preconnect" href="https://i.postimg.cc">
-<link rel="dns-prefetch" href="https://i.postimg.cc">
-
-<!-- GHA Roboto bo7do (weights gha li kaystakhdem) -->
+<!-- Font link (document isolé — request cached mn parent) -->
 <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
 
-<!-- Swiper CSS b preload -->
-<link rel="preload" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" as="style">
+<!-- Swiper CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 
 <style>
@@ -105,7 +96,7 @@ body{background:var(--bg);font-family:'Roboto',system-ui,-apple-system,sans-seri
     <div class="swiper" id="baSwiper">
       <div class="swiper-wrapper">
 
-        <!-- SLIDE 1 -->
+        <!-- SLIDE 1 : LCP dyal l'iframe -->
         <div class="swiper-slide">
           <div class="ba-card" style="--cc:#2bb3f3">
             <div class="ba-slide-title">
@@ -115,11 +106,11 @@ body{background:var(--bg);font-family:'Roboto',system-ui,-apple-system,sans-seri
             </div>
             <div class="ba-compare">
               <div class="ba-before-layer">
-                <img src="https://i.postimg.cc/1zKFgVvh/5-before-compressed.webp" alt="Avant" loading="lazy" decoding="async" width="400" height="400">
+                <img src="https://i.postimg.cc/1zKFgVvh/5-before-compressed.webp" alt="Avant" decoding="async" width="400" height="400" fetchpriority="high">
                 <span class="ba-lbl ba-lbl-b">Avant</span>
               </div>
               <div class="ba-after-layer">
-                <img src="https://i.postimg.cc/JhQXyHpw/5-after-compressed.webp" alt="Après" loading="lazy" decoding="async" width="400" height="400">
+                <img src="https://i.postimg.cc/JhQXyHpw/5-after-compressed.webp" alt="Après" decoding="async" width="400" height="400" fetchpriority="high">
               </div>
               <span class="ba-lbl ba-lbl-a">Après</span>
               <div class="ba-handle">
@@ -319,11 +310,10 @@ body{background:var(--bg);font-family:'Roboto',system-ui,-apple-system,sans-seri
   <div class="ba-pagination" id="baPagination"></div>
 </section>
 
-<!-- Swiper JS b defer bach ma yblokich l'rendering -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
 
 <script>
-window.addEventListener('load', function(){
+function baBoot(){
   var swiper = new Swiper('#baSwiper',{
     slidesPerView:1,
     spaceBetween:16,
@@ -338,6 +328,16 @@ window.addEventListener('load', function(){
       1280:{ slidesPerView:4, spaceBetween:22 }
     }
   });
+
+  var lastH=0;
+  function sendH(){
+    var h=Math.max(document.body.scrollHeight,document.documentElement.scrollHeight);
+    if(h!==lastH){ lastH=h; parent.postMessage({type:'luminelleBAHeight',height:h},'*'); }
+  }
+  window.addEventListener('resize',sendH);
+  window.addEventListener('load',sendH);
+  if('ResizeObserver' in window){ new ResizeObserver(sendH).observe(document.body); }
+  sendH();
 
   document.querySelectorAll('.ba-compare').forEach(function(el){
     var after = el.querySelector('.ba-after-layer');
@@ -370,6 +370,7 @@ window.addEventListener('load', function(){
         lblB.style.background = 'rgba(0,0,0,.5)';
         lblA.style.background = 'rgba(0,0,0,.5)';
       }
+      sendH();
     }
 
     var btn = el.querySelector('.ba-btn');
@@ -414,7 +415,9 @@ window.addEventListener('load', function(){
     el.addEventListener('contextmenu', function(e){ e.preventDefault(); });
     update(50);
   });
-});
+}
+if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded', baBoot); }
+else { baBoot(); }
 </script>
 
 </body>
